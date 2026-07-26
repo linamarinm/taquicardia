@@ -476,55 +476,39 @@
   <div class="wrap">
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center;">
       
-      <!-- Texto de la autora -->
+      <!-- Imagen con estilo de cuaderno -->
+      <figure style="margin: 0; position: relative;">
+        <img src="img/imagen02.png" alt="Lina Marín" style="
+          width: 100%;
+          height: auto;
+          display: block;
+          filter: grayscale(20%) contrast(1.02) sepia(5%);
+          border: 1px solid rgba(26,26,26,0.1);
+          box-shadow: 0 1px 5px rgba(0,0,0,0.05);
+        ">
+        <figcaption style="
+          font-family: var(--font-mono);
+          font-size: 0.7rem;
+          color: var(--graphite);
+          margin-top: 0.8rem;
+          font-style: italic;
+          padding: 1rem 0;
+          border-top: 1px solid rgba(26,26,26,0.08);
+        ">
+          Lina Marín, 2026. Cuaderno de investigación visual.
+        </figcaption>
+      </figure>
+
+      <!-- Texto -->
       <div>
         <span class="label">Quién escribe esto</span>
         <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Lina Marín</h2>
-        
         <p style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 1.5rem;">
           Periodista, ensayista, investigadora y creadora. Doctora en Estudios Interdisciplinarios sobre Pensamiento, Cultura y Sociedad.
         </p>
         <p style="font-size: 1.1rem; line-height: 1.8;">
           He trabajado en medios de comunicación, organizaciones sociales y universidades en Colombia, España y Chile. Estudia el éxito como hiperobjeto y el impacto que tiene en nuestras sociedades la forma en la que lo concebimos. Taquicardia es su apuesta por pasar de la academia a la autoría pública, con rigor, pero también con divulgación y sensibilidad.
         </p>
-      </div>
-
-      <!-- Elemento gráfico: Apunte de cuaderno de investigación -->
-      <div style="position: relative; padding: 2rem; background: rgba(255,255,255,0.3); border: 1px solid rgba(26,26,26,0.08);">
-        <svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: auto;">
-          <!-- Título manuscrito simulado -->
-          <text x="30" y="40" font-family="monospace" font-size="14" fill="#1a1a1a" opacity="0.8" transform="rotate(-2 30 40)">¿qué es el éxito?</text>
-          
-          <!-- Flecha hacia abajo -->
-          <path d="M 80,50 L 80,80 M 75,75 L 80,80 L 85,75" stroke="#1a1a1a" stroke-width="1" fill="none" opacity="0.6"/>
-          
-          <!-- Diagrama: tres círculos conectados -->
-          <circle cx="120" cy="130" r="35" stroke="#1a1a1a" stroke-width="1" fill="none" opacity="0.7"/>
-          <text x="105" y="135" font-family="monospace" font-size="10" fill="#3a3a3a">trabajo</text>
-          
-          <circle cx="220" cy="130" r="35" stroke="#1a1a1a" stroke-width="1" fill="none" opacity="0.7"/>
-          <text x="205" y="135" font-family="monospace" font-size="10" fill="#3a3a3a">amor</text>
-          
-          <circle cx="170" cy="210" r="35" stroke="#1a1a1a" stroke-width="1" fill="none" opacity="0.7"/>
-          <text x="150" y="215" font-family="monospace" font-size="10" fill="#3a3a3a">dinero</text>
-          
-          <!-- Líneas de conexión -->
-          <path d="M 150,115 L 190,115" stroke="#8a9a8a" stroke-width="0.8" fill="none" opacity="0.5"/>
-          <path d="M 135,160 L 155,185" stroke="#8a9a8a" stroke-width="0.8" fill="none" opacity="0.5"/>
-          <path d="M 205,160 L 185,185" stroke="#8a9a8a" stroke-width="0.8" fill="none" opacity="0.5"/>
-          
-          <!-- Nota al margen -->
-          <text x="280" y="100" font-family="monospace" font-size="9" fill="#3a3a3a" opacity="0.6" transform="rotate(3 280 100)">hiperobjeto</text>
-          <path d="M 270,105 L 250,115" stroke="#3a3a3a" stroke-width="0.6" fill="none" opacity="0.5"/>
-          
-          <!-- Cross-hatching sutil en una esquina -->
-          <g opacity="0.3">
-            <path d="M 320,250 L 340,270 M 325,255 L 345,275 M 330,260 L 350,280" stroke="#1a1a1a" stroke-width="0.5"/>
-          </g>
-          
-          <!-- Pregunta final -->
-          <text x="50" y="300" font-family="monospace" font-size="11" fill="#8a9a8a" opacity="0.7" font-style="italic">¿y después?</text>
-        </svg>
       </div>
     </div>
   </div>
