@@ -248,50 +248,33 @@
   }
   .labs-details strong { display: block; color: var(--charcoal); margin-bottom: 0.3rem; font-size: 0.85rem; }
 
-  /* SECCIÓN: SOBRE LINA */
-  .about-grid {
-    display: grid;
-    grid-template-columns: 0.8fr 1.2fr;
-    gap: 4rem;
-    align-items: center;
-  }
-  .about-photo {
-    aspect-ratio: 3/4;
-    background: rgba(26,26,26,0.05);
-    border: 1px solid rgba(26,26,26,0.1);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--graphite);
-    text-align: center;
-    padding: 2rem;
-    position: relative;
-  }
-  /* Efecto de "cinta adhesiva" o nota en la foto */
-  .about-photo::before {
-    content: "";
-    position: absolute;
-    top: -10px;
-    left: 50%;
-    transform: translateX(-50%) rotate(-2deg);
-    width: 80px;
-    height: 25px;
-    background: rgba(240, 236, 228, 0.8);
-    border: 1px solid rgba(26,26,26,0.1);
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-  }
-  .about-text h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
-  .credentials {
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid rgba(26,26,26,0.1);
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--graphite);
-    line-height: 1.8;
-  }
+  <!-- SOBRE LINA -->
+<section id="autora">
+  <div class="wrap">
+    <span class="label">Quién escribe esto</span>
+    <h2 style="font-size: 2.5rem; margin-bottom: 2rem;">Lina Marín</h2>
+    
+    <div style="max-width: 750px;">
+      <p style="font-size: 1.15rem; line-height: 1.8; margin-bottom: 1.5rem;">
+        Periodista, ensayista, investigadora y creadora. Doctora en Estudios Interdisciplinarios sobre Pensamiento, Cultura y Sociedad.
+      </p>
+      <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+        He trabajado en medios de comunicación, organizaciones sociales y universidades en Colombia, España y Chile. Durante años estudié el éxito desde la academia; hoy lo estudio desde la escritura, la escucha y la creación.
+      </p>
+      <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 2.5rem;">
+        Taquicardia es el resultado de ese tránsito: pasar de la investigación a la autoría pública, con rigor pero también con divulgación, sensibilidad y una apuesta clara por la expansión vital.
+      </p>
+      
+      <div style="padding: 2rem 0; border-top: 1px solid rgba(26,26,26,0.1); border-bottom: 1px solid rgba(26,26,26,0.1); font-family: var(--font-mono); font-size: 0.8rem; color: var(--graphite); line-height: 2;">
+        <strong style="color: var(--charcoal); display: block; margin-bottom: 0.5rem; font-size: 0.85rem;">Trayectoria:</strong>
+        · Doctora en Estudios Interdisciplinarios sobre Pensamiento, Cultura y Sociedad<br>
+        · Experiencia docente e investigativa en Colombia, España y Chile<br>
+        · Periodista en medios de comunicación y organizaciones sociales<br>
+        · Creadora del observatorio Taquicardia
+      </div>
+    </div>
+  </div>
+</section>
 
   /* FOOTER */
   footer {
