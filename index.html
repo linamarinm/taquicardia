@@ -1,976 +1,420 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Taquicardia | Lina Marín</title>
-<meta name="description" content="Un observatorio crítico sobre las crisis del éxito, el rendimiento y la aceleración contemporánea." />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
-<style>
-  /* ============================================
-     VARIABLES Y RESET
-     ============================================ */
-  :root {
-    --bg-paper: #ece8df;
-    --bg-card: #f4f1ea;
-    --charcoal: #1f1f1f;
-    --basalt: #333333;
-    --moss: #2d3b32;
-    --amber: #c68b59;
-    --font-display: 'Cormorant Garamond', serif;
-    --font-body: 'Lora', serif;
-    --font-mono: 'JetBrains Mono', monospace;
-  }
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Taquicardia | Lina Marín</title>
   
-  body {
-    font-family: var(--font-body);
-    font-size: 18px;
-    line-height: 1.7;
-    color: var(--charcoal);
-    background-color: var(--bg-paper);
-    overflow-x: hidden;
-    position: relative;
-  }
+  <!-- Tipografías de corte editorial estilo diario de autor -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 
-  /* ============================================
-     TEXTURA DE PAPEL (Fondo global)
-     ============================================ */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    opacity: 0.6;
-    mix-blend-mode: multiply;
-  }
+  <style>
+    /* VARIABLES Y ESTILO GENERAL (PAPEL ALGODÓN Y CARBONCILLO) */
+    :root {
+      --bg-paper: #f4f1ea;
+      --bg-paper-dark: #ece8df;
+      --text-charcoal: #222222;
+      --text-muted: #555555;
+      --accent-basalt: #333333;
+      --accent-moss: #2d3b32;
+      --accent-amber: #c68b59;
+      --font-title: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'EB Garamond', Georgia, serif;
+    }
 
-  /* ============================================
-     TIPOGRAFÍA Y REGLA DE MAYÚSCULAS
-     ============================================ */
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    font-weight: 500;
-    color: var(--charcoal);
-    letter-spacing: 0.01em;
-    /* Regla: solo primera letra mayúscula (se aplica en el HTML) */
-  }
-  
-  .mono { 
-    font-family: var(--font-mono); 
-    font-size: 0.75rem; 
-    letter-spacing: 0.12em; 
-    text-transform: lowercase; /* Forzamos minúsculas en mono para cumplir la regla */
-    color: var(--basalt); 
-  }
-  
-  .italic-serif { font-style: italic; font-family: var(--font-display); }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  /* ============================================
-     LAYOUT Y BORDES RASGADOS (Torn paper)
-     ============================================ */
-  .wrap {
-    position: relative;
-    z-index: 5;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 1.5rem;
-  }
+    body {
+      background-color: var(--bg-paper);
+      color: var(--text-charcoal);
+      font-family: var(--font-body);
+      font-size: 1.25rem;
+      line-height: 1.7;
+      overflow-x: hidden;
+      /* Textura sutil de grano sobre el papel */
+      background-image: radial-gradient(#00000008 1px, transparent 0);
+      background-size: 24px 24px;
+    }
 
-  .torn-paper {
-    position: relative;
-    background: var(--bg-card);
-    padding: 4rem 3.5rem;
-    box-shadow: 0 20px 50px -20px rgba(31,31,31,0.2);
-    /* Máscara SVG para bordes irregulares superiores e inferiores */
-    -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><path d='M0,4 L3,1 L8,4 L13,2 L19,5 L25,2 L31,4 L37,1 L43,4 L49,2 L55,5 L61,2 L67,4 L73,1 L79,4 L85,2 L91,5 L96,2 L100,4 L100,96 L97,99 L92,96 L86,99 L80,96 L74,99 L68,96 L62,99 L56,96 L50,99 L44,96 L38,99 L32,96 L26,99 L20,96 L14,99 L8,96 L3,99 L0,96 Z' fill='black'/></svg>");
-            mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100' preserveAspectRatio='none'><path d='M0,4 L3,1 L8,4 L13,2 L19,5 L25,2 L31,4 L37,1 L43,4 L49,2 L55,5 L61,2 L67,4 L73,1 L79,4 L85,2 L91,5 L96,2 L100,4 L100,96 L97,99 L92,96 L86,99 L80,96 L74,99 L68,96 L62,99 L56,96 L50,99 L44,96 L38,99 L32,96 L26,99 L20,96 L14,99 L8,96 L3,99 L0,96 Z' fill='black'/></svg>");
-    -webkit-mask-size: 100% 100%;
-            mask-size: 100% 100%;
-  }
+    /* BORDES RASGADOS Y EFECTO DIARIO */
+    .journal-sheet {
+      background-color: #faf8f5;
+      max-width: 900px;
+      margin: 40px auto;
+      padding: 60px 50px;
+      position: relative;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+      /* Borde rasgado artesanal mediante clip-path */
+      clip-path: polygon(
+        0% 0.5%, 15% 0%, 30% 0.8%, 45% 0.2%, 60% 0.6%, 75% 0.1%, 90% 0.7%, 100% 0%,
+        99.5% 15%, 100% 30%, 99.2% 45%, 99.8% 60%, 99.3% 75%, 100% 90%, 99.6% 100%,
+        85% 99.5%, 70% 100%, 55% 99.2%, 40% 99.8%, 25% 99.3%, 10% 100%, 0% 99.6%,
+        0.4% 85%, 0% 70%, 0.6% 55%, 0.1% 40%, 0.5% 25%, 0.2% 10%
+      );
+      border: 1px solid rgba(0,0,0,0.05);
+    }
 
-  .torn-paper::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    opacity: 0.4;
-    mix-blend-mode: multiply;
-  }
+    /* NAVEGACIÓN SOBRIA */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 30px;
+      border-bottom: 1px dashed rgba(0,0,0,0.15);
+      margin-bottom: 50px;
+      font-size: 1rem;
+    }
 
-  @media (max-width: 768px) {
-    .torn-paper { padding: 3rem 1.5rem; }
-  }
+    nav .logo-text {
+      font-family: var(--font-title);
+      font-size: 1.4rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+    }
 
-  /* ============================================
-     NAVEGACIÓN
-     ============================================ */
-  nav.top {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 50;
-    padding: 1.2rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    backdrop-filter: blur(8px);
-    background: rgba(236,232,223,0.8);
-    border-bottom: 1px solid rgba(31,31,31,0.08);
-  }
-  nav.top .brand {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 0.05em;
-  }
-  nav.top .brand span { color: var(--amber); }
-  nav.top ul { list-style: none; display: flex; gap: 2rem; }
-  nav.top a {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--basalt);
-    text-decoration: none;
-    position: relative;
-    padding-bottom: 4px;
-    transition: color .3s;
-  }
-  nav.top a::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 1px;
-    background: var(--amber);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform .4s ease;
-  }
-  nav.top a:hover { color: var(--charcoal); }
-  nav.top a:hover::after { transform: scaleX(1); }
+    nav ul {
+      display: flex;
+      list-style: none;
+      gap: 20px;
+    }
 
-  @media (max-width: 600px) {
-    nav.top ul { gap: 1.2rem; }
-    nav.top a { font-size: 0.7rem; }
-  }
+    nav a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
 
-  /* ============================================
-     HERO / PORTADA
-     ============================================ */
-  .hero {
-    position: relative;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8rem 1.5rem 4rem;
-    overflow: hidden;
-    text-align: center;
-  }
-  .hero-inner { position: relative; z-index: 6; max-width: 750px; }
-  
-  .hero .folio {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.2em;
-    color: var(--amber);
-    margin-bottom: 1.5rem;
-  }
-  .hero h1 {
-    font-size: clamp(3rem, 9vw, 6rem);
-    font-weight: 500;
-    line-height: 0.95;
-    margin-bottom: 0.5rem;
-  }
-  .hero h1 .sep {
-    display: inline-block;
-    color: var(--amber);
-    font-style: italic;
-    font-weight: 300;
-    margin: 0 0.3em;
-  }
-  .hero .manifesto {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(1.2rem, 2.5vw, 1.6rem);
-    color: var(--basalt);
-    margin: 1.5rem auto 2.5rem;
-    line-height: 1.5;
-    max-width: 600px;
-  }
-  .hero .scroll-cue {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    color: var(--basalt);
-    opacity: 0.7;
-    margin-top: 3rem;
-  }
-  .hero .scroll-cue .arrow {
-    display: block;
-    margin: 0.8rem auto 0;
-    animation: bob 2.4s ease-in-out infinite;
-  }
-  @keyframes bob {
-    0%, 100% { transform: translateY(0); opacity: 0.5; }
-    50% { transform: translateY(8px); opacity: 1; }
-  }
+    nav a:hover {
+      color: var(--accent-amber);
+    }
 
-  /* ============================================
-     PARALLAX LAYERS
-     ============================================ */
-  .parallax-stage {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 3;
-    overflow: hidden;
-  }
-  .p-layer {
-    position: absolute;
-    will-change: transform;
-    /* La transformación Y se inyecta vía JS en la variable --py */
-    transform: translate3d(0, var(--py, 0px), 0);
-  }
-  .p-layer svg { display: block; }
+    /* ENCABEZADOS Y TEXTO */
+    h1, h2, h3 {
+      font-family: var(--font-title);
+      font-weight: 400;
+      color: var(--accent-basalt);
+    }
 
-  /* ============================================
-     SECCIONES GENERALES
-     ============================================ */
-  section.journal {
-    position: relative;
-    z-index: 5;
-    padding: 6rem 0;
-  }
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    gap: 1.2rem;
-    margin-bottom: 2.5rem;
-    border-bottom: 1px solid rgba(31,31,31,0.15);
-    padding-bottom: 1rem;
-    flex-wrap: wrap;
-  }
-  .section-head .num {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--amber);
-  }
-  .section-head h2 {
-    font-size: clamp(1.8rem, 4vw, 2.8rem);
-    font-weight: 500;
-    line-height: 1.1;
-  }
-  .section-head .meta {
-    margin-left: auto;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--basalt);
-    opacity: 0.7;
-  }
+    h1 {
+      font-size: 3rem;
+      line-height: 1.15;
+      margin-bottom: 20px;
+    }
 
-  /* ============================================
-     SECCIÓN 1: ARCHIVO Y CONTENIDOS
-     ============================================ */
-  .archive-grid {
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
-    align-items: start;
-  }
-  .marginalia {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    line-height: 1.6;
-    color: var(--basalt);
-    padding-top: 0.4rem;
-    border-left: 1px solid rgba(198,139,89,0.5);
-    padding-left: 1rem;
-  }
-  .marginalia .tag {
-    display: block;
-    color: var(--amber);
-    letter-spacing: 0.15em;
-    margin-bottom: 0.6rem;
-  }
-  .main-text p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 1.2rem;
-    color: var(--charcoal);
-  }
-  .main-text .pullquote {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.5rem;
-    line-height: 1.4;
-    color: var(--moss);
-    margin: 2rem 0;
-    padding: 1rem 0 1rem 1.5rem;
-    border-left: 2px solid var(--amber);
-  }
-  .formats-list {
-    list-style: none;
-    margin-top: 1.5rem;
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-  }
-  .formats-list li {
-    font-family: var(--font-display);
-    font-size: 1.2rem;
-    color: var(--charcoal);
-    padding-left: 1.2rem;
-    position: relative;
-  }
-  .formats-list li::before {
-    content: "—";
-    position: absolute;
-    left: 0;
-    color: var(--amber);
-  }
+    h2 {
+      font-size: 2.2rem;
+      margin-bottom: 25px;
+      position: relative;
+      display: inline-block;
+    }
 
-  @media (max-width: 768px) {
-    .archive-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .marginalia { border-left: none; border-top: 1px solid rgba(198,139,89,0.5); padding: 1rem 0 0; }
-    .formats-list { grid-template-columns: 1fr; }
-  }
+    .subtitle-manifesto {
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 750px;
+    }
 
-  /* ============================================
-     PARALLAX VISUAL JOURNEY (Corazón a lápiz)
-     ============================================ */
-  .visual-journey {
-    position: relative;
-    height: 70vh;
-    min-height: 500px;
-    margin: 4rem 0 0;
-    overflow: hidden;
-    border-top: 1px dashed rgba(31,31,31,0.2);
-    border-bottom: 1px dashed rgba(31,31,31,0.2);
-    background: radial-gradient(ellipse at center, rgba(244,241,234,0.8), rgba(236,232,223,1));
-  }
-  .visual-journey .caption {
-    position: absolute;
-    bottom: 2rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    text-align: center;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--basalt);
-    max-width: 450px;
-  }
-  .visual-journey .caption::before {
-    content: "—";
-    display: block;
-    color: var(--amber);
-    margin-bottom: 0.4rem;
-    font-size: 1.3rem;
-  }
+    /* CORAZÓN A LÁPIZ Y PARALLAX */
+    .parallax-container {
+      position: relative;
+      height: 380px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 60px 0;
+      overflow: hidden;
+    }
 
-  /* ============================================
-     SECCIÓN 2: LABORATORIOS
-     ============================================ */
-  .lab-intro {
-    max-width: 650px;
-    margin-bottom: 3rem;
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: var(--basalt);
-  }
-  .lab-intro .to {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: var(--amber);
-    display: block;
-    margin-bottom: 0.8rem;
-  }
-  .labs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-  }
-  .lab-card {
-    position: relative;
-    padding: 2rem 1.5rem;
-    border: 1px solid rgba(31,31,31,0.15);
-    background: rgba(244,241,234,0.6);
-    transition: transform .4s ease, box-shadow .4s ease;
-  }
-  .lab-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px -15px rgba(31,31,31,0.2);
-  }
-  .lab-card .icon {
-    width: 56px;
-    height: 56px;
-    margin-bottom: 1.2rem;
-  }
-  .lab-card h3 {
-    font-size: 1.35rem;
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-    line-height: 1.2;
-  }
-  .lab-card .format {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--amber);
-    margin-bottom: 1rem;
-  }
-  .lab-card p {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--basalt);
-  }
-  .lab-card .num {
-    position: absolute;
-    top: 1rem;
-    right: 1.2rem;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.3rem;
-    color: rgba(31,31,31,0.2);
-  }
+    .pencil-heart-svg {
+      width: 260px;
+      height: 260px;
+      position: absolute;
+      will-change: transform;
+      transition: transform 0.1s linear;
+      filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.05));
+    }
 
-  .dialogue-block {
-    margin-top: 3rem;
-    padding: 2rem;
-    border-left: 1px solid var(--moss);
-    background: rgba(45,59,50,0.03);
-  }
-  .dialogue-block h3 {
-    font-size: 1.3rem;
-    color: var(--moss);
-    margin-bottom: 0.8rem;
-  }
+    /* CONTENIDOS DIGITALES Y ARCHIVO */
+    .content-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 40px 0;
+    }
 
-  /* ============================================
-     SECCIÓN 3: CONTACTO
-     ============================================ */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 4rem;
-    align-items: start;
-  }
-  .cta-block .primary {
-    display: inline-block;
-    padding: 1rem 1.8rem;
-    background: var(--charcoal);
-    color: var(--bg-paper);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    text-decoration: none;
-    border: 1px solid var(--charcoal);
-    transition: all .35s ease;
-    margin-bottom: 1.2rem;
-  }
-  .cta-block .primary:hover {
-    background: var(--amber);
-    border-color: var(--amber);
-    color: var(--charcoal);
-  }
-  .cta-block .secondary {
-    display: block;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.1rem;
-    color: var(--moss);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(45,59,50,0.3);
-    padding-bottom: 2px;
-    width: fit-content;
-    transition: color .3s, border-color .3s;
-    margin-bottom: 1.5rem;
-  }
-  .cta-block .secondary:hover { color: var(--amber); border-color: var(--amber); }
-  .cta-block .note {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: var(--basalt);
-    font-style: italic;
-  }
+    .content-card {
+      background-color: var(--bg-paper-dark);
+      padding: 25px 20px;
+      border-radius: 2px;
+      border-left: 2px solid var(--accent-amber);
+      font-size: 1.15rem;
+      transition: transform 0.3s ease;
+    }
 
-  form.journal-form {
-    display: grid;
-    gap: 1.2rem;
-  }
-  .field { position: relative; }
-  .field label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--basalt);
-    margin-bottom: 0.4rem;
-  }
-  .field input, .field textarea {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(31,31,31,0.35);
-    padding: 0.5rem 0;
-    font-family: var(--font-body);
-    font-size: 1rem;
-    color: var(--charcoal);
-    outline: none;
-    transition: border-color .3s;
-  }
-  .field textarea { resize: vertical; min-height: 90px; }
-  .field input:focus, .field textarea:focus { border-color: var(--amber); }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
-  
-  form button {
-    justify-self: start;
-    padding: 0.9rem 2rem;
-    background: transparent;
-    border: 1px solid var(--charcoal);
-    color: var(--charcoal);
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    cursor: pointer;
-    transition: all .35s ease;
-    margin-top: 0.5rem;
-  }
-  form button:hover {
-    background: var(--charcoal);
-    color: var(--bg-paper);
-  }
+    .content-card:hover {
+      transform: translateY(-3px);
+    }
 
-  @media (max-width: 768px) {
-    .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .field-row { grid-template-columns: 1fr; }
-  }
+    /* FRASE INTERMEDIA DE TRANSICIÓN */
+    .quote-block {
+      text-align: center;
+      font-size: 1.6rem;
+      font-style: italic;
+      font-family: var(--font-title);
+      color: var(--accent-moss);
+      margin: 70px 0;
+      padding: 30px 20px;
+      border-top: 1px solid rgba(0,0,0,0.1);
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      position: relative;
+    }
 
-  /* ============================================
-     FOOTER Y DIVISORES
-     ============================================ */
-  .pencil-divider {
-    display: block;
-    width: 100%;
-    max-width: 250px;
-    margin: 2.5rem auto;
-    height: 20px;
-    opacity: 0.5;
-  }
-  footer {
-    position: relative;
-    z-index: 5;
-    padding: 4rem 1.5rem 3rem;
-    text-align: center;
-    border-top: 1px solid rgba(31,31,31,0.15);
-    margin-top: 4rem;
-  }
-  footer .mark {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.15rem;
-    color: var(--moss);
-    margin-bottom: 0.6rem;
-  }
-  footer .colophon {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--basalt);
-    opacity: 0.7;
-  }
-  footer .colophon span { color: var(--amber); }
+    /* SECCIÓN PRESENCIAL Y DIÁLOGOS */
+    .list-artisan {
+      list-style: none;
+      margin: 25px 0 40px 0;
+    }
 
-  /* ============================================
-     ANIMACIONES DE ENTRADA
-     ============================================ */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 1s ease, transform 1s ease;
-  }
-  .reveal.in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  ::selection { background: var(--amber); color: var(--bg-paper); }
-</style>
+    .list-artisan li {
+      position: relative;
+      padding-left: 30px;
+      margin-bottom: 15px;
+    }
+
+    .list-artisan li::before {
+      content: "—";
+      position: absolute;
+      left: 0;
+      color: var(--accent-amber);
+    }
+
+    /* FORMULARIO Y BOTONES */
+    .cta-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-bottom: 50px;
+    }
+
+    .btn-primary {
+      background-color: var(--accent-basalt);
+      color: var(--bg-paper);
+      padding: 14px 28px;
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      border: 1px solid var(--accent-basalt);
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .btn-primary:hover {
+      background-color: transparent;
+      color: var(--accent-basalt);
+    }
+
+    .btn-secondary {
+      background-color: transparent;
+      color: var(--accent-basalt);
+      padding: 14px 28px;
+      text-decoration: none;
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      border: 1px dashed var(--accent-basalt);
+      transition: all 0.3s ease;
+    }
+
+    .btn-secondary:hover {
+      border-style: solid;
+      color: var(--accent-amber);
+    }
+
+    .journal-form {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      margin-top: 30px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      font-family: var(--font-body);
+      font-size: 1.1rem;
+      color: var(--text-charcoal);
+      outline: none;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-bottom-color: var(--accent-amber);
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-top: 60px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(0,0,0,0.08);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .journal-sheet {
+        padding: 30px 20px;
+        margin: 10px;
+        clip-path: none;
+      }
+
+      h1 { font-size: 2.3rem; }
+      h2 { font-size: 1.8rem; }
+      
+      nav {
+        flex-direction: column;
+        gap: 15px;
+        align-items: flex-start;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ============================================
-     NAVEGACIÓN
-     ============================================ -->
-<nav class="top">
-  <div class="brand">Taquicardia <span>·</span> Lina Marín</div>
-  <ul>
-    <li><a href="#archivo">El archivo</a></li>
-    <li><a href="#laboratorios">Laboratorios</a></li>
-    <li><a href="#contacto">Contacto</a></li>
-  </ul>
-</nav>
-
-<!-- ============================================
-     HERO / PORTADA DEL DIARIO
-     ============================================ -->
-<header class="hero">
-  <div class="parallax-stage" aria-hidden="true">
-    <!-- Línea de pulso sutil -->
-    <div class="p-layer" data-speed="0.15" style="top: 15%; left: -5%; width: 110%;">
-      <svg viewBox="0 0 1200 80" width="100%" height="60" preserveAspectRatio="none">
-        <path d="M0,40 L180,40 L210,40 L225,10 L240,70 L255,30 L270,50 L285,40 L500,40 L530,40 L545,15 L560,65 L575,35 L590,48 L605,40 L900,40 L930,40 L945,12 L960,68 L975,32 L990,48 L1005,40 L1200,40"
-          fill="none" stroke="#1f1f1f" stroke-width="1" opacity="0.3" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <!-- Boceto: pluma -->
-    <div class="p-layer" data-speed="0.35" style="top: 25%; right: 8%; width: 100px;">
-      <svg viewBox="0 0 120 180" width="100%">
-        <g fill="none" stroke="#2d3b32" stroke-width="1.1" stroke-linecap="round" opacity="0.5">
-          <path d="M60,10 C55,40 50,70 48,100 C46,130 50,160 58,175"/>
-          <path d="M60,10 C70,35 78,60 78,90 C78,120 70,150 60,170"/>
-          <path d="M60,25 L40,35 M60,40 L35,50 M60,55 L32,65 M60,70 L34,80 M60,85 L36,95 M60,100 L40,110 M60,115 L44,125 M60,130 L48,140"/>
-          <path d="M60,25 L80,35 M60,40 L85,50 M60,55 L88,65 M60,70 L86,80 M60,85 L84,95 M60,100 L80,110 M60,115 L76,125 M60,130 L72,140"/>
-        </g>
-      </svg>
-    </div>
-    <!-- Boceto: reloj de arena -->
-    <div class="p-layer" data-speed="0.25" style="bottom: 20%; left: 10%; width: 80px;">
-      <svg viewBox="0 0 90 130" width="100%">
-        <g fill="none" stroke="#1f1f1f" stroke-width="1.1" stroke-linecap="round" opacity="0.45">
-          <path d="M15,15 L75,15 M15,115 L75,115"/>
-          <path d="M20,15 C20,50 40,60 45,65 C50,60 70,50 70,15"/>
-          <path d="M20,115 C20,80 40,70 45,65 C50,70 70,80 70,115"/>
-          <path d="M45,65 L45,95" stroke-dasharray="2 3"/>
-        </g>
-      </svg>
-    </div>
-    <!-- Nota al margen -->
-    <div class="p-layer" data-speed="0.1" style="top: 65%; right: 12%; width: 160px;">
-      <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:0.95rem; color:#2d3b32; opacity:0.5; transform:rotate(-3deg);">
-        « el corazón no se rinde,<br/>se expande »
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-inner">
-    <div class="folio">Cuaderno de campo · 2026</div>
-    <!-- ============================================ -->
-    <!-- EDITA AQUÍ: TÍTULO Y MANIFIESTO            -->
-    <!-- ============================================ -->
-    <h1>Taquicardia <span class="sep">|</span> Lina Marín</h1>
-    <p class="manifesto">Un observatorio crítico sobre las crisis del éxito, el rendimiento y la aceleración contemporánea. Apuntes para la expansión vital.</p>
+  <main class="journal-sheet">
     
-    <div class="scroll-cue">
-      Descender al archivo
-      <svg class="arrow" width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="#333" stroke-width="1">
-        <path d="M7,1 L7,18 M1,12 L7,18 L13,12"/>
+    <!-- Navegación sobria -->
+    <nav>
+      <div class="logo-text">Taquicardia | Lina Marín</div>
+      <ul>
+        <li><a href="#archivo">El archivo</a></li>
+        <li><a href="#laboratorios">Laboratorios</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+
+    <!-- Encabezado / Portada del diario -->
+    <header>
+      <h1>Taquicardia | Lina Marín</h1>
+      <p class="subtitle-manifesto">
+        Un observatorio crítico sobre las crisis del éxito, el rendimiento y la aceleración contemporánea. Apuntes para la expansión vital.
+      </p>
+    </header>
+
+    <!-- Sección Parallax: Corazón dibujado a lápiz remarcado -->
+    <div class="parallax-container">
+      <svg class="pencil-heart-svg" id="pencilHeart" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Trazos superpuestos tipo boceto a lápiz/carboncillo -->
+        <path d="M100 165C100 165 40 120 25 80C10 40 40 15 70 30C85 37 100 55 100 55C100 55 115 37 130 30C160 15 190 40 175 80C160 120 100 165 100 165Z" stroke="#222222" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="300" opacity="0.85"/>
+        <path d="M101 167C101 167 38 122 23 81C8 39 39 13 69 28C84 35 101 53 101 53C101 53 116 35 131 28C161 13 192 39 177 81C162 122 101 167 101 167Z" stroke="#333333" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="200" opacity="0.6"/>
+        <path d="M99 163C99 163 42 118 27 79C12 41 41 17 71 32C86 39 99 57 99 57C99 57 114 39 129 32C159 17 188 41 173 79C158 118 99 163 99 163Z" stroke="#555555" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
+        <!-- Textura de grafito e impulsos (latido/pulsación) -->
+        <path d="M60 60C70 65 80 80 80 80" stroke="#1f1f1f" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
+        <path d="M130 60C120 65 110 80 110 80" stroke="#1f1f1f" stroke-width="1.2" stroke-linecap="round" opacity="0.4"/>
       </svg>
     </div>
-  </div>
-</header>
 
-<!-- ============================================
-     SECCIÓN 1: ARCHIVO Y CONTENIDOS DIGITALES
-     ============================================ -->
-<section class="journal" id="archivo">
-  <div class="wrap">
-    <div class="torn-paper reveal">
-      <div class="section-head">
-        <span class="num">I.</span>
-        <h2>El archivo y los contenidos digitales</h2>
-        <span class="meta">Investigación · Narrativa</span>
+    <!-- Sección de contenidos digitales y archivo -->
+    <section id="archivo">
+      <h2>El archivo de contenidos</h2>
+      <p>Formatos de investigación y divulgación autoral para abrir espacios de pensamiento:</p>
+      
+      <div class="content-grid">
+        <div class="content-card">Ensayos breves</div>
+        <div class="content-card">Audiolibros</div>
+        <div class="content-card">Cápsulas de audio</div>
+        <div class="content-card">Series audiovisuales</div>
       </div>
+    </section>
 
-      <div class="archive-grid">
-        <aside class="marginalia">
-          <span class="tag">Nota marginal</span>
-          Este espacio no busca respuestas definitivas. Busca sostener la pregunta el tiempo suficiente para que el cuerpo pueda respirar.
-        </aside>
-
-        <div class="main-text">
-          <!-- ============================================ -->
-          <!-- EDITA AQUÍ: FRASE DE TRANSICIÓN            -->
-          <!-- ============================================ -->
-          <div class="pullquote">
-            Escribir e investigar para pausar el ritmo de la época y reabrir la pregunta por la vida.
-          </div>
-
-          <p>El proyecto se despliega en formatos que permiten habitar la lentitud. Desde la palabra escrita hasta la voz registrada, cada pieza es un intento de cartografiar el agotamiento y proponer fisuras por donde entre la autonomía.</p>
-
-          <!-- ============================================ -->
-          <!-- EDITA AQUÍ: LISTA DE FORMATOS              -->
-          <!-- ============================================ -->
-          <ul class="formats-list">
-            <li>Ensayos breves</li>
-            <li>Audiolibros</li>
-            <li>Cápsulas de audio</li>
-            <li>Series audiovisuales</li>
-          </ul>
-        </div>
-      </div>
-
-      <!-- Divisor a lápiz -->
-      <svg class="pencil-divider" viewBox="0 0 250 20" preserveAspectRatio="none">
-        <path d="M5,10 C30,4 55,16 80,10 C105,4 130,16 155,10 C180,4 205,16 230,10 C240,8 245,12 245,10"
-          fill="none" stroke="#1f1f1f" stroke-width="1" stroke-linecap="round" opacity="0.5"/>
-      </svg>
-
-      <!-- PARALLAX VISUAL JOURNEY: Corazón a lápiz -->
-      <div class="visual-journey">
-        <div class="parallax-stage">
-          <!-- Corazón central con filtro de textura a lápiz -->
-          <div class="p-layer" data-speed="0.4" style="top: 50%; left: 50%; width: min(50vw, 450px);">
-            <svg viewBox="0 0 500 480" width="100%" aria-label="Corazón dibujado a lápiz">
-              <defs>
-                <filter id="graphite" x="-10%" y="-10%" width="120%" height="120%">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/>
-                  <feDisplacementMap in="SourceGraphic" scale="1.5"/>
-                </filter>
-              </defs>
-              <g filter="url(#graphite)" fill="none" stroke="#1f1f1f" stroke-linecap="round" stroke-linejoin="round">
-                <!-- Contorno principal (múltiples trazos para efecto artesanal) -->
-                <path d="M250,430 C 120,340 40,260 40,170 C 40,100 95,55 160,55 C 205,55 235,80 250,115 C 265,80 295,55 340,55 C 405,55 460,100 460,170 C 460,260 380,340 250,430 Z" stroke-width="2.2" opacity="0.9"/>
-                <path d="M250,430 C 125,342 45,262 45,172 C 45,104 98,60 162,60 C 206,60 236,84 250,118 C 264,84 294,60 338,60 C 402,60 455,104 455,172 C 455,262 375,342 250,430 Z" stroke-width="1" opacity="0.5"/>
-                <!-- Sombreado interno y tramado -->
-                <path d="M90,180 C 110,230 160,290 220,340" stroke-width="0.8" opacity="0.5"/>
-                <path d="M410,180 C 390,230 340,290 280,340" stroke-width="0.8" opacity="0.5"/>
-                <g opacity="0.4" stroke-width="0.5">
-                  <path d="M70,160 L100,180 M75,175 L105,195 M80,190 L110,210 M85,205 L115,225 M90,220 L120,240 M95,235 L125,255"/>
-                  <path d="M430,160 L400,180 M425,175 L395,195 M420,190 L390,210 M415,205 L385,225 M410,220 L380,240 M405,235 L375,255"/>
-                </g>
-                <!-- Grieta central -->
-                <path d="M250,130 C 245,180 245,240 250,300" stroke-width="0.8" opacity="0.5"/>
-                <path d="M245,140 L255,150 M245,160 L255,170 M245,180 L255,190 M245,200 L255,210 M245,220 L255,230 M245,240 L255,250 M245,260 L255,270 M245,280 L255,290" stroke-width="0.5" opacity="0.45"/>
-              </g>
-            </svg>
-          </div>
-
-          <!-- Elementos flotantes adicionales -->
-          <div class="p-layer" data-speed="0.2" style="top: 18%; left: 12%; width: 90px;">
-            <svg viewBox="0 0 110 140" width="100%">
-              <g fill="none" stroke="#2d3b32" stroke-width="1" stroke-linecap="round" opacity="0.5">
-                <path d="M30,130 C 25,110 20,90 25,70 C 28,55 35,50 40,55 L42,80"/>
-                <path d="M42,80 L42,40 C 42,30 50,28 52,38 L54,75"/>
-                <path d="M54,75 L55,35 C 55,25 63,23 65,33 L66,75"/>
-                <path d="M66,75 L67,42 C 67,32 75,30 77,40 L78,80"/>
-                <path d="M78,80 L80,55 C 82,45 90,45 90,55 L88,90 C 86,110 75,125 60,130 C 45,135 35,132 30,130 Z"/>
-              </g>
-            </svg>
-          </div>
-
-          <div class="p-layer" data-speed="0.55" style="bottom: 25%; right: 15%; width: 140px;">
-            <svg viewBox="0 0 160 100" width="100%">
-              <g fill="none" stroke="#1f1f1f" stroke-width="1" stroke-linecap="round" opacity="0.45">
-                <path d="M10,80 C 40,70 70,72 80,85 C 90,72 120,70 150,80"/>
-                <path d="M10,80 L10,25 C 40,15 70,18 80,30 L80,85"/>
-                <path d="M150,80 L150,25 C 120,15 90,18 80,30"/>
-                <path d="M20,40 L70,35 M20,50 L70,45 M20,60 L70,55" opacity="0.5"/>
-                <path d="M140,40 L90,35 M140,50 L90,45 M140,60 L90,55" opacity="0.5"/>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <div class="caption">
-          Apuntes al margen. El latido como territorio de investigación.
-        </div>
-      </div>
+    <!-- Frase intermedia de transición -->
+    <div class="quote-block">
+      "Escribir e investigar para pausar el ritmo de la época y reabrir la pregunta por la vida."
     </div>
-  </div>
-</section>
 
-<!-- ============================================
-     SECCIÓN 2: LABORATORIOS PRESENCIALES
-     ============================================ -->
-<section class="journal" id="laboratorios">
-  <div class="wrap">
-    <div class="torn-paper reveal">
-      <div class="section-head">
-        <span class="num">II.</span>
-        <h2>Laboratorios de experiencia presencial</h2>
-        <span class="meta">Encuentros · Territorio</span>
+    <!-- Sección presencial e institucional -->
+    <section id="laboratorios">
+      <h2>Laboratorios de experiencia presencial</h2>
+      <p>Espacios pedagógicos y críticos diseñados para universidades, secretarías de cultura, centros culturales y fundaciones:</p>
+      
+      <ul class="list-artisan">
+        <li>Laboratorios de desaceleración</li>
+        <li>Cátedras transversales sobre rendimiento y trabajo</li>
+      </ul>
+
+      <h3 style="font-size: 1.6rem; margin-top: 30px; margin-bottom: 10px;">Diálogos</h3>
+      <p>
+        Diálogos de diagnóstico y conversaciones sobre el agotamiento, el ritmo contemporáneo y la autonomía creativa.
+      </p>
+    </section>
+
+    <div style="margin: 60px 0 40px 0; border-bottom: 1px dashed rgba(0,0,0,0.15);"></div>
+
+    <!-- Llamado a la acción y contacto -->
+    <section id="contacto">
+      <h2>Contacto e instituciones</h2>
+      
+      <div class="cta-group" style="margin-top: 25px;">
+        <a href="#formulario" class="btn-primary">Solicitar dossier pedagógico o agendar laboratorio presencial</a>
+        <a href="#archivo" class="btn-secondary">Acceder al archivo de ensayos y audio</a>
       </div>
 
-      <div class="lab-intro">
-        <span class="to">Dirigido a →</span>
-        <!-- ============================================ -->
-        <!-- EDITA AQUÍ: TEXTO INTRODUCTORIO            -->
-        <!-- ============================================ -->
-        <p>Universidades, secretarías de cultura, centros culturales y fundaciones. Cada encuentro se diseña a medida del territorio, la institución y la pregunta que lo convoca. No son conferencias: son espacios de trabajo con el cuerpo, la palabra y el tiempo.</p>
-      </div>
-
-      <div class="labs-grid">
-        <!-- Formato 1 -->
-        <article class="lab-card">
-          <span class="num">01</span>
-          <svg class="icon" viewBox="0 0 72 72" fill="none" stroke="#2d3b32" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="36" cy="36" r="28" opacity="0.3"/>
-            <path d="M36,14 C 52,14 58,26 58,36 C 58,48 48,56 36,56 C 24,56 18,48 18,38 C 18,28 26,22 36,22 C 44,22 50,28 50,36 C 50,42 45,46 40,46 C 35,46 32,42 32,38"/>
-          </svg>
-          <div class="format">Formato · 8 a 20 horas</div>
-          <h3>Laboratorios de desaceleración</h3>
-          <p>Encuentros para trabajar la relación con el tiempo, el cansancio y la productividad. Ejercicios de escritura, escucha y pausa para equipos docentes, de trabajo y comunidades.</p>
-        </article>
-
-        <!-- Formato 2 -->
-        <article class="lab-card">
-          <span class="num">02</span>
-          <svg class="icon" viewBox="0 0 72 72" fill="none" stroke="#2d3b32" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10,36 L62,36" opacity="0.4"/>
-            <path d="M36,10 L36,62" opacity="0.4"/>
-            <path d="M14,14 L58,58"/>
-            <path d="M58,14 L14,58"/>
-            <circle cx="36" cy="36" r="4" fill="#c68b59" stroke="none"/>
-            <circle cx="36" cy="36" r="18" opacity="0.3"/>
-          </svg>
-          <div class="format">Formato · Cátedra semestral</div>
-          <h3>Cátedras transversales sobre rendimiento y trabajo</h3>
-          <p>Programas académicos que atraviesan sociología, literatura, filosofía, artes y salud. Pensar el trabajo como pregunta ética, estética y política.</p>
-        </article>
-      </div>
-
-      <div class="dialogue-block">
-        <h3>Diálogos de diagnóstico</h3>
-        <p>Conversaciones sobre el agotamiento y la autonomía creativa. Encuentros públicos entre la autora, invitados e instituciones para nombrar, con rigor y poesía, las crisis contemporáneas del éxito. Formato abierto para centros culturales, festivales y fundaciones.</p>
-      </div>
-
-      <svg class="pencil-divider" viewBox="0 0 250 20" preserveAspectRatio="none" style="margin-top:3rem;">
-        <path d="M5,10 Q 40,2 70,10 T 140,10 T 210,10 T 245,10"
-          fill="none" stroke="#1f1f1f" stroke-width="1" stroke-linecap="round" opacity="0.45"/>
-      </svg>
-    </div>
-  </div>
-</section>
-
-<!-- ============================================
-     SECCIÓN 3: CONTACTO (FORMULARIO DE DIARIO)
-     ============================================ -->
-<section class="journal" id="contacto">
-  <div class="wrap">
-    <div class="torn-paper reveal">
-      <div class="section-head">
-        <span class="num">III.</span>
-        <h2>Contacto</h2>
-        <span class="meta">Correspondencia</span>
-      </div>
-
-      <div class="contact-grid">
-        <div class="cta-block">
-          <!-- ============================================ -->
-          <!-- EDITA AQUÍ: ENLACES Y BOTONES DE ACCIÓN    -->
-          <!-- ============================================ -->
-          <a href="mailto:contacto@taquicardia.com" class="primary">Solicitar dossier pedagógico o agendar laboratorio presencial</a>
-          <a href="#archivo" class="secondary">Acceder al archivo de ensayos y audio →</a>
-          
-          <p class="note">
-            Cada solicitud es leída personalmente. La respuesta llega en el tiempo que toma una carta, no un correo automático. Si escribe desde una institución, incluya el nombre del programa o área que le convoca.
-          </p>
+      <form id="formulario" class="journal-form" action="#" method="post" onsubmit="event.preventDefault(); alert('Gracias por tu mensaje. Nos pondremos en contacto pronto.');">
+        <div class="form-group">
+          <input type="text" placeholder="Nombre" required>
         </div>
+        <div class="form-group">
+          <input type="text" placeholder="Institución u organización">
+        </div>
+        <div class="form-group">
+          <input type="text" placeholder="Ciudad">
+        </div>
+        <div class="form-group">
+          <textarea rows="4" placeholder="Mensaje" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="align-self: flex-start; margin-top: 10px;">Enviar mensaje</button>
+      </form>
+    </section>
 
-        <!-- ============================================ -->
-        <!-- EDITA AQUÍ: FORMULARIO (ACTION Y CAMPOS)     -->
-        <!-- ============================================ -->
-        <form class="journal-form" onsubmit="event.preventDefault(); this.querySelector('button').innerText='✓ Enviado — gracias';">
-          <div class="field">
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" required />
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="inst">Institución u organización</label>
-              <input type="text" id="inst" name="inst" />
-            </div>
-            <div class="field">
-              <label for="ciudad">Ciudad</label>
-              <input type="text" id="ciudad" name="ciudad" />
-            </div>
-          </div>
-          <div class="field">
-            <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" name="mensaje" required></textarea>
-          </div>
-          <button type="submit">Enviar correspondencia</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+    <footer>
+      <p>Taquicardia | Lina Marín © 2026. Todos los derechos reservados.</p>
+    </footer>
 
-<!-- ============================================
-     FOOTER
-     ============================================ -->
-<footer>
-  <div class="mark">« Taquicardia: el pulso que pide otra respiración. »</div>
-  <div class="colophon">
-    Taquicardia <span>·</span> Lina Marín <span>·</span> Cuaderno de campo <span>·</span> MMXXVI
-  </div>
-</footer>
+  </main>
 
-<!-- ============================================
-     JAVASCRIPT: PARALLAX Y REVEAL
-     ============================================ -->
-<script>
-  // 1. Parallax fluido optimizado con requestAnimationFrame
-  (function(){
-    const layers = document.querySelectorAll('.p-layer');
-    let ticking = false;
-
-    function updateParallax() {
-      const scrollY = window.scrollY;
-      layers.forEach(layer => {
-        const speed = parseFloat(layer.dataset.speed) || 0.2;
-        const parent = layer.closest('.parallax-stage') || layer.parentElement;
-        const parentTop = parent.getBoundingClientRect().top + scrollY;
+  <!-- JavaScript para el efecto Parallax del corazón dibujado a lápiz -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const heart = document.getElementById('pencilHeart');
+      
+      window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        // Movimiento suave y rotación sutil al hacer scroll
+        const translateY = scrolled * 0.12;
+        const rotate = (scrolled * 0.03) % 360;
         
-        // Calculamos el desplazamiento relativo al contenedor padre
-        const offset = (scrollY - parentTop) * speed;
-        layer.style.setProperty('--py', offset + 'px');
-        
-        // Mantenemos el centrado del corazón si tiene estilo inline específico
-        if(layer.style.width && layer.style.width.includes('min(')) {
-           layer.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
+        if (heart) {
+          heart.style.transform = `translateY(${translateY}px) rotate(${rotate}deg)`;
         }
       });
-      ticking = false;
-    }
-
-    function onScroll() {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateParallax);
-    updateParallax(); // Ejecutar al cargar
-  })();
-
-  // 2. Animación de aparición al hacer scroll (Intersection Observer)
-  (function(){
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -50px 0px' });
-    
-    reveals.forEach(el => observer.observe(el));
-  })();
-</script>
+    });
+  </script>
 
 </body>
 </html>
