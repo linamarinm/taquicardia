@@ -4,20 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Taquicardia | Lina Marín</title>
-<meta name="description" content="Un observatorio crítico sobre las crisis del éxito, el rendimiento y la aceleración contemporánea." />
+<meta name="description" content="Observatorio sobre las crisis y reelaboraciones del éxito. Ensayos, audiolibros y laboratorios presenciales." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Lora:ital,wght@0,400;0,500;1,400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
-  /* ============================================
-     VARIABLES Y RESET
-     ============================================ */
   :root {
-    --bg-paper: #ece8df;
-    --charcoal: #1f1f1f;
-    --basalt: #333333;
-    --moss: #2d3b32;
-    --amber: #c68b59;
+    --bg-paper: #f0ece4; /* Papel algodón suave */
+    --charcoal: #1a1a1a;
+    --graphite: #3a3a3a;
+    --accent: #8a9a8a; /* Verde salvia muy suave, como acento de portaminas */
     --font-display: 'Cormorant Garamond', serif;
     --font-body: 'Lora', serif;
     --font-mono: 'JetBrains Mono', monospace;
@@ -29,832 +25,494 @@
   body {
     font-family: var(--font-body);
     font-size: 18px;
-    line-height: 1.7;
+    line-height: 1.75;
     color: var(--charcoal);
     background-color: var(--bg-paper);
     overflow-x: hidden;
-    position: relative;
   }
 
-  /* Textura de papel sutil global (sin bordes rasgados) */
+  /* Textura de papel algodón sutil */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 1;
-    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='500' height='500'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1  0 0 0 0 0.08  0 0 0 0 0.05  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-    opacity: 0.5;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='400' height='400'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.08  0 0 0 0 0.06  0 0 0 0 0.04  0 0 0 0.04 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    opacity: 0.6;
     mix-blend-mode: multiply;
   }
 
-  /* ============================================
-     TIPOGRAFÍA
-     ============================================ */
-  h1, h2, h3, h4 {
-    font-family: var(--font-display);
-    font-weight: 500;
-    color: var(--charcoal);
-    letter-spacing: 0.01em;
-  }
-  
-  .mono { 
-    font-family: var(--font-mono); 
-    font-size: 0.75rem; 
-    letter-spacing: 0.12em; 
-    color: var(--basalt); 
-  }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 500; color: var(--charcoal); line-height: 1.1; }
+  p { margin-bottom: 1.5rem; color: var(--graphite); }
 
-  /* ============================================
-     LAYOUT FULL WIDTH Y LIMPIO
-     ============================================ */
   .wrap {
     position: relative;
     z-index: 5;
-    max-width: 1300px; /* Más ancho, más expansivo */
+    max-width: 1100px;
     margin: 0 auto;
     padding: 0 2rem;
   }
 
-  section.journal {
-    position: relative;
-    z-index: 5;
-    padding: 8rem 0;
-    border-bottom: 1px solid rgba(31,31,31,0.1);
-  }
-  section.journal:last-of-type { border-bottom: none; }
+  section { position: relative; z-index: 5; padding: 8rem 0; border-bottom: 1px solid rgba(26,26,26,0.08); }
+  section:last-of-type { border-bottom: none; }
 
-  .section-head {
-    display: flex;
-    align-items: baseline;
-    gap: 1.2rem;
-    margin-bottom: 3rem;
-    border-bottom: 1px solid rgba(31,31,31,0.15);
-    padding-bottom: 1rem;
-    flex-wrap: wrap;
-  }
-  .section-head .num {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.2rem;
-    color: var(--amber);
-  }
-  .section-head h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 500;
-    line-height: 1.1;
-  }
-  .section-head .meta {
-    margin-left: auto;
+  /* Tipografía tipo "escrita a mano" para etiquetas */
+  .label {
     font-family: var(--font-mono);
     font-size: 0.7rem;
     letter-spacing: 0.15em;
-    color: var(--basalt);
-    opacity: 0.7;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: block;
   }
 
-  /* ============================================
-     NAVEGACIÓN
-     ============================================ */
+  /* NAVEGACIÓN */
   nav.top {
     position: fixed;
     top: 0; left: 0; right: 0;
     z-index: 50;
-    padding: 1.2rem 2rem;
+    padding: 1.5rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    backdrop-filter: blur(8px);
-    background: rgba(236,232,223,0.85);
-    border-bottom: 1px solid rgba(31,31,31,0.08);
+    backdrop-filter: blur(6px);
+    background: rgba(240,236,228,0.8);
+    border-bottom: 1px solid rgba(26,26,26,0.06);
   }
-  nav.top .brand {
-    font-family: var(--font-display);
-    font-weight: 600;
-    font-size: 1.1rem;
-    letter-spacing: 0.05em;
-  }
-  nav.top .brand span { color: var(--amber); }
-  nav.top ul { list-style: none; display: flex; gap: 2.5rem; }
+  nav.top .brand { font-family: var(--font-display); font-weight: 600; font-size: 1.2rem; letter-spacing: 0.02em; }
+  nav.top ul { list-style: none; display: flex; gap: 2rem; }
   nav.top a {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
-    color: var(--basalt);
+    font-size: 0.72rem;
+    color: var(--graphite);
     text-decoration: none;
-    position: relative;
-    padding-bottom: 4px;
     transition: color .3s;
   }
-  nav.top a::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; bottom: 0;
-    height: 1px;
-    background: var(--amber);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform .4s ease;
-  }
-  nav.top a:hover { color: var(--charcoal); }
-  nav.top a:hover::after { transform: scaleX(1); }
+  nav.top a:hover { color: var(--charcoal); text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 4px; }
 
-  @media (max-width: 600px) {
-    nav.top ul { gap: 1.2rem; }
-    nav.top a { font-size: 0.7rem; }
-    .wrap { padding: 0 1.2rem; }
-  }
-
-  /* ============================================
-     HERO / PORTADA
-     ============================================ */
+  /* HERO */
   .hero {
+    min-height: 95vh;
+    display: flex;
+    align-items: center;
+    padding-top: 6rem;
     position: relative;
-    min-height: 100vh;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero h1 {
+    font-size: clamp(3.5rem, 7vw, 5.5rem);
+    margin-bottom: 1.5rem;
+    letter-spacing: -0.02em;
+  }
+  .hero h1 .italic { font-style: italic; font-weight: 400; color: var(--accent); }
+  .hero .promise {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-style: italic;
+    line-height: 1.4;
+    color: var(--graphite);
+    margin-bottom: 3rem;
+    max-width: 550px;
+    border-left: 1px solid var(--accent);
+    padding-left: 1.5rem;
+  }
+  .hero-ctas { display: flex; gap: 1.2rem; flex-wrap: wrap; }
+  
+  .btn {
+    display: inline-block;
+    padding: 1rem 1.8rem;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all .3s;
+    border: 1px solid var(--charcoal);
+  }
+  .btn-primary { background: var(--charcoal); color: var(--bg-paper); }
+  .btn-primary:hover { background: var(--accent); border-color: var(--accent); color: var(--charcoal); }
+  .btn-secondary { background: transparent; color: var(--charcoal); }
+  .btn-secondary:hover { background: var(--charcoal); color: var(--bg-paper); }
+
+  /* DIBUJOS A LÁPIZ (SVG estilizados para parecer rapidógrafo/portaminas) */
+  .sketch-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 8rem 2rem 4rem;
-    overflow: hidden;
-    text-align: center;
   }
-  .hero-inner { position: relative; z-index: 6; max-width: 850px; }
-  
-  .hero .folio {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    color: var(--amber);
-    margin-bottom: 1.5rem;
+  .sketch-svg {
+    width: 100%;
+    max-width: 350px;
+    filter: drop-shadow(2px 4px 6px rgba(0,0,0,0.05));
   }
-  .hero h1 {
-    font-size: clamp(3.5rem, 10vw, 7rem);
-    font-weight: 500;
-    line-height: 0.95;
-    margin-bottom: 0.5rem;
+  .sketch-svg path, .sketch-svg circle, .sketch-svg line {
+    fill: none;
+    stroke: var(--charcoal);
+    stroke-width: 1.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
   }
-  .hero h1 .sep {
-    display: inline-block;
-    color: var(--amber);
-    font-style: italic;
-    font-weight: 300;
-    margin: 0 0.3em;
-  }
-  .hero .manifesto {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: clamp(1.3rem, 2.5vw, 1.8rem);
-    color: var(--basalt);
-    margin: 1.5rem auto 2.5rem;
-    line-height: 1.5;
-    max-width: 650px;
-  }
-  .hero .scroll-cue {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.25em;
-    color: var(--basalt);
-    opacity: 0.7;
-    margin-top: 3rem;
-  }
-  .hero .scroll-cue .arrow {
-    display: block;
-    margin: 0.8rem auto 0;
-    animation: bob 2.4s ease-in-out infinite;
-  }
-  @keyframes bob {
-    0%, 100% { transform: translateY(0); opacity: 0.5; }
-    50% { transform: translateY(8px); opacity: 1; }
-  }
+  .sketch-svg .cross-hatch { stroke-width: 0.6; opacity: 0.6; }
+  .sketch-svg .accent-line { stroke: var(--accent); stroke-width: 1; }
 
-  /* ============================================
-     PARALLAX LAYERS
-     ============================================ */
-  .parallax-stage {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 3;
-    overflow: hidden;
-  }
-  .p-layer {
-    position: absolute;
-    will-change: transform;
-    transform: translate3d(0, var(--py, 0px), 0);
-  }
-  .p-layer svg { display: block; }
-
-  /* ============================================
-     SECCIÓN 1: ARCHIVO
-     ============================================ */
-  .archive-grid {
+  /* SECCIÓN: QUÉ ES / PROPUESTA */
+  .proposal-grid {
     display: grid;
-    grid-template-columns: 1fr 2.5fr;
+    grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: start;
   }
-  .marginalia {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    line-height: 1.6;
-    color: var(--basalt);
-    padding-top: 0.4rem;
-    border-left: 1px solid var(--amber);
-    padding-left: 1.2rem;
-  }
-  .marginalia .tag {
-    display: block;
-    color: var(--amber);
-    letter-spacing: 0.15em;
-    margin-bottom: 0.6rem;
-  }
-  .main-text p {
-    font-size: 1.15rem;
-    line-height: 1.85;
-    margin-bottom: 1.5rem;
-    color: var(--charcoal);
-  }
-  .main-text .pullquote {
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.6rem;
-    line-height: 1.4;
-    color: var(--moss);
-    margin: 2.5rem 0;
-    padding: 1.5rem 0 1.5rem 2rem;
-    border-left: 2px solid var(--amber);
-    background: rgba(198,139,89,0.05);
-  }
-  .formats-list {
+  .proposal-text h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+  .proposal-text p { font-size: 1.1rem; }
+  .axes-list {
     list-style: none;
     margin-top: 2rem;
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.2rem;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
   }
-  .formats-list li {
-    font-family: var(--font-display);
-    font-size: 1.3rem;
-    color: var(--charcoal);
-    padding-left: 1.5rem;
-    position: relative;
-  }
-  .formats-list li::before {
-    content: "—";
-    position: absolute;
-    left: 0;
-    color: var(--amber);
-  }
-
-  @media (max-width: 900px) {
-    .archive-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .formats-list { grid-template-columns: 1fr; }
-  }
-
-  /* ============================================
-     PARALLAX VISUAL JOURNEY (Corazón + Ilustraciones)
-     ============================================ */
-  .visual-journey {
-    position: relative;
-    height: 75vh;
-    min-height: 550px;
-    margin: 5rem 0 0;
-    overflow: hidden;
-    border-top: 1px solid rgba(31,31,31,0.1);
-    border-bottom: 1px solid rgba(31,31,31,0.1);
-    background: radial-gradient(ellipse at center, rgba(244,241,234,0.9), rgba(236,232,223,1));
-  }
-  .visual-journey .caption {
-    position: absolute;
-    bottom: 3rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
-    text-align: center;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.2rem;
-    color: var(--basalt);
-    max-width: 500px;
-  }
-
-  /* ============================================
-     SECCIÓN 2: LABORATORIOS
-     ============================================ */
-  .lab-intro {
-    max-width: 700px;
-    margin-bottom: 3.5rem;
-    font-size: 1.1rem;
-    line-height: 1.8;
-    color: var(--basalt);
-  }
-  .lab-intro .to {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    letter-spacing: 0.15em;
-    color: var(--amber);
-    display: block;
-    margin-bottom: 0.8rem;
-  }
-  .labs-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    gap: 3rem;
-  }
-  .lab-card {
-    position: relative;
-    padding: 2.5rem 2rem;
-    border: 1px solid rgba(31,31,31,0.12);
-    background: rgba(255,255,255,0.3);
-    transition: transform .4s ease, border-color .4s ease;
-  }
-  .lab-card:hover {
-    transform: translateY(-4px);
-    border-color: var(--amber);
-  }
-  .lab-card .icon {
-    width: 64px;
-    height: 64px;
-    margin-bottom: 1.5rem;
-  }
-  .lab-card h3 {
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-bottom: 0.6rem;
-    line-height: 1.2;
-  }
-  .lab-card .format {
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--amber);
-    margin-bottom: 1.2rem;
-    display: block;
-  }
-  .lab-card p {
-    font-size: 1rem;
-    line-height: 1.65;
-    color: var(--basalt);
-  }
-  .lab-card .num {
-    position: absolute;
-    top: 1.5rem;
-    right: 1.5rem;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.5rem;
-    color: rgba(31,31,31,0.15);
-  }
-
-  .dialogue-block {
-    margin-top: 4rem;
-    padding: 3rem;
-    border: 1px solid var(--moss);
-    background: rgba(45,59,50,0.03);
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
-  .dialogue-block .icon {
-    width: 80px;
-    height: 80px;
-    flex-shrink: 0;
-  }
-  .dialogue-block h3 {
-    font-size: 1.5rem;
-    color: var(--moss);
-    margin-bottom: 0.8rem;
-  }
-  .dialogue-block p {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    color: var(--basalt);
-  }
-
-  @media (max-width: 768px) {
-    .dialogue-block { flex-direction: column; text-align: center; padding: 2rem; }
-  }
-
-  /* ============================================
-     SECCIÓN 3: CONTACTO (BOTONES MEJORADOS)
-     ============================================ */
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.2fr;
-    gap: 5rem;
-    align-items: start;
-  }
-  
-  /* BOTONES DE ALTA VISIBILIDAD */
-  .cta-block .primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    padding: 1.3rem 2rem;
-    background: var(--amber);
-    color: var(--charcoal);
-    font-family: var(--font-mono);
-    font-size: 0.85rem;
-    font-weight: 400;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 1px solid var(--amber);
-    transition: all .3s ease;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 15px rgba(198,139,89,0.3);
-  }
-  .cta-block .primary:hover {
-    background: var(--charcoal);
-    border-color: var(--charcoal);
-    color: var(--bg-paper);
-    box-shadow: 0 6px 20px rgba(31,31,31,0.2);
-    transform: translateY(-2px);
-  }
-  
-  .cta-block .secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-family: var(--font-display);
-    font-style: italic;
-    font-size: 1.2rem;
-    color: var(--moss);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(45,59,50,0.3);
-    padding-bottom: 2px;
-    transition: color .3s, border-color .3s;
-    margin-bottom: 2rem;
-  }
-  .cta-block .secondary:hover { color: var(--amber); border-color: var(--amber); }
-  
-  .cta-block .note {
-    font-size: 1rem;
-    line-height: 1.7;
-    color: var(--basalt);
-    font-style: italic;
-    border-left: 2px solid rgba(31,31,31,0.15);
-    padding-left: 1.2rem;
-  }
-
-  form.journal-form {
-    display: grid;
-    gap: 1.5rem;
-    background: rgba(255,255,255,0.4);
-    padding: 2.5rem;
-    border: 1px solid rgba(31,31,31,0.1);
-  }
-  .field { position: relative; }
-  .field label {
-    display: block;
-    font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--basalt);
-    margin-bottom: 0.5rem;
-  }
-  .field input, .field textarea {
-    width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 2px solid rgba(31,31,31,0.2);
-    padding: 0.6rem 0;
-    font-family: var(--font-body);
-    font-size: 1.05rem;
-    color: var(--charcoal);
-    outline: none;
-    transition: border-color .3s;
-  }
-  .field textarea { resize: vertical; min-height: 100px; }
-  .field input:focus, .field textarea:focus { border-color: var(--amber); }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
-  
-  form button {
-    justify-self: start;
-    padding: 1rem 2.5rem;
-    background: var(--charcoal);
-    border: 1px solid var(--charcoal);
-    color: var(--bg-paper);
+  .axes-list li {
     font-family: var(--font-mono);
     font-size: 0.8rem;
+    color: var(--graphite);
+    padding-left: 1rem;
+    position: relative;
+  }
+  .axes-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+  }
+
+  /* SECCIÓN: ECOSISTEMA (PRODUCTOS) */
+  .ecosystem-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+  .eco-card {
+    padding: 2rem;
+    border: 1px solid rgba(26,26,26,0.1);
+    background: rgba(255,255,255,0.4);
+    transition: transform .3s;
+  }
+  .eco-card:hover { transform: translateY(-3px); border-color: var(--accent); }
+  .eco-card .type {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
     letter-spacing: 0.15em;
+    color: var(--accent);
     text-transform: uppercase;
-    cursor: pointer;
-    transition: all .35s ease;
-    margin-top: 0.5rem;
+    margin-bottom: 1rem;
   }
-  form button:hover {
-    background: var(--moss);
-    border-color: var(--moss);
+  .eco-card h3 { font-size: 1.5rem; margin-bottom: 1rem; }
+  .eco-card p { font-size: 0.95rem; line-height: 1.6; margin-bottom: 1.5rem; }
+  .eco-card a {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--charcoal);
+    text-decoration: none;
+    border-bottom: 1px solid var(--charcoal);
+    padding-bottom: 2px;
+  }
+  .eco-card a:hover { color: var(--accent); border-color: var(--accent); }
+
+  /* SECCIÓN: LABORATORIOS (B2B) */
+  .labs-block {
+    background: rgba(138, 154, 138, 0.08); /* Verde salvia muy tenue */
+    padding: 3.5rem;
+    border: 1px solid rgba(138, 154, 138, 0.2);
+    margin-top: 2rem;
+  }
+  .labs-block h3 { font-size: 2rem; margin-bottom: 1rem; }
+  .labs-details {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 2rem 0;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--graphite);
+  }
+  .labs-details strong { display: block; color: var(--charcoal); margin-bottom: 0.3rem; font-size: 0.85rem; }
+
+  /* SECCIÓN: SOBRE LINA */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .about-photo {
+    aspect-ratio: 3/4;
+    background: rgba(26,26,26,0.05);
+    border: 1px solid rgba(26,26,26,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--graphite);
+    text-align: center;
+    padding: 2rem;
+    position: relative;
+  }
+  /* Efecto de "cinta adhesiva" o nota en la foto */
+  .about-photo::before {
+    content: "";
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 80px;
+    height: 25px;
+    background: rgba(240, 236, 228, 0.8);
+    border: 1px solid rgba(26,26,26,0.1);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
+  .about-text h2 { font-size: 2.5rem; margin-bottom: 1.5rem; }
+  .credentials {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(26,26,26,0.1);
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--graphite);
+    line-height: 1.8;
   }
 
-  @media (max-width: 900px) {
-    .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
-    .field-row { grid-template-columns: 1fr; }
-  }
-
-  /* ============================================
-     FOOTER Y DIVISORES
-     ============================================ */
-  .pencil-divider {
-    display: block;
-    width: 100%;
-    max-width: 300px;
-    margin: 3rem auto;
-    height: 20px;
-    opacity: 0.4;
-  }
+  /* FOOTER */
   footer {
     position: relative;
     z-index: 5;
-    padding: 5rem 2rem 4rem;
+    padding: 5rem 0 3rem;
     text-align: center;
-    border-top: 1px solid rgba(31,31,31,0.1);
+    border-top: 1px solid rgba(26,26,26,0.08);
   }
-  footer .mark {
+  footer .quote {
     font-family: var(--font-display);
     font-style: italic;
-    font-size: 1.3rem;
-    color: var(--moss);
-    margin-bottom: 0.8rem;
+    font-size: 1.5rem;
+    color: var(--graphite);
+    max-width: 600px;
+    margin: 0 auto 2rem;
   }
-  footer .colophon {
+  footer .links {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  footer .links a {
     font-family: var(--font-mono);
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--basalt);
+    font-size: 0.75rem;
+    color: var(--charcoal);
+    text-decoration: none;
+  }
+  footer .links a:hover { color: var(--accent); }
+  footer .copy {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--graphite);
     opacity: 0.7;
   }
-  footer .colophon span { color: var(--amber); }
 
-  /* ============================================
-     ANIMACIONES DE ENTRADA
-     ============================================ */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 1s ease, transform 1s ease;
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero-grid, .proposal-grid, .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .hero { min-height: auto; padding: 8rem 0 4rem; }
+    .sketch-container { height: 300px; order: -1; }
+    .labs-details { grid-template-columns: 1fr; gap: 1.5rem; }
+    .axes-list { grid-template-columns: 1fr; }
+    nav.top ul { display: none; } /* Simplificado para móvil, se puede agregar menú hamburguesa si se desea */
   }
-  .reveal.in {
-    opacity: 1;
-    transform: translateY(0);
-  }
-  ::selection { background: var(--amber); color: var(--bg-paper); }
 </style>
 </head>
 <body>
 
-<!-- NAVEGACIÓN -->
 <nav class="top">
-  <div class="brand">Taquicardia <span>·</span> Lina Marín</div>
+  <div class="brand">Taquicardia</div>
   <ul>
-    <li><a href="#archivo">El archivo</a></li>
+    <li><a href="#propuesta">La propuesta</a></li>
+    <li><a href="#ecosistema">Ecosistema</a></li>
     <li><a href="#laboratorios">Laboratorios</a></li>
-    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#autora">Lina Marín</a></li>
   </ul>
 </nav>
 
-<!-- HERO / PORTADA -->
-<header class="hero">
-  <div class="parallax-stage" aria-hidden="true">
-    <!-- Línea de pulso -->
-    <div class="p-layer" data-speed="0.15" style="top: 15%; left: -5%; width: 110%;">
-      <svg viewBox="0 0 1200 80" width="100%" height="60" preserveAspectRatio="none">
-        <path d="M0,40 L180,40 L210,40 L225,10 L240,70 L255,30 L270,50 L285,40 L500,40 L530,40 L545,15 L560,65 L575,35 L590,48 L605,40 L900,40 L930,40 L945,12 L960,68 L975,32 L990,48 L1005,40 L1200,40"
-          fill="none" stroke="#1f1f1f" stroke-width="1" opacity="0.25" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </div>
-    <!-- Boceto: pluma -->
-    <div class="p-layer" data-speed="0.35" style="top: 25%; right: 10%; width: 120px;">
-      <svg viewBox="0 0 120 180" width="100%">
-        <g fill="none" stroke="#2d3b32" stroke-width="1.1" stroke-linecap="round" opacity="0.4">
-          <path d="M60,10 C55,40 50,70 48,100 C46,130 50,160 58,175"/>
-          <path d="M60,10 C70,35 78,60 78,90 C78,120 70,150 60,170"/>
-          <path d="M60,25 L40,35 M60,40 L35,50 M60,55 L32,65 M60,70 L34,80 M60,85 L36,95 M60,100 L40,110"/>
-          <path d="M60,25 L80,35 M60,40 L85,50 M60,55 L88,65 M60,70 L86,80 M60,85 L84,95 M60,100 L80,110"/>
-        </g>
-      </svg>
-    </div>
-    <!-- Nota al margen -->
-    <div class="p-layer" data-speed="0.1" style="top: 65%; left: 8%; width: 160px;">
-      <div style="font-family:'Cormorant Garamond',serif; font-style:italic; font-size:1rem; color:#2d3b32; opacity:0.4; transform:rotate(-4deg);">
-        « el corazón no se rinde,<br/>se expande »
-      </div>
-    </div>
-  </div>
-
-  <div class="hero-inner">
-    <div class="folio">Cuaderno de campo · 2026</div>
-    <h1>Taquicardia <span class="sep">|</span> Lina Marín</h1>
-    <p class="manifesto">Un observatorio crítico sobre las crisis del éxito, el rendimiento y la aceleración contemporánea. Apuntes para la expansión vital.</p>
-    
-    <div class="scroll-cue">
-      Descender al archivo
-      <svg class="arrow" width="14" height="20" viewBox="0 0 14 20" fill="none" stroke="#333" stroke-width="1">
-        <path d="M7,1 L7,18 M1,12 L7,18 L13,12"/>
-      </svg>
-    </div>
-  </div>
-</header>
-
-<!-- SECCIÓN 1: ARCHIVO Y CONTENIDOS DIGITALES -->
-<section class="journal" id="archivo">
+<!-- HERO -->
+<section class="hero">
   <div class="wrap">
-    <div class="reveal">
-      <div class="section-head">
-        <span class="num">I.</span>
-        <h2>El archivo y los contenidos digitales</h2>
-        <span class="meta">Investigación · Narrativa</span>
-      </div>
-
-      <div class="archive-grid">
-        <aside class="marginalia">
-          <span class="tag">Nota marginal</span>
-          Este espacio no busca respuestas definitivas. Busca sostener la pregunta el tiempo suficiente para que el cuerpo pueda respirar.
-        </aside>
-
-        <div class="main-text">
-          <div class="pullquote">
-            Escribir e investigar para pausar el ritmo de la época y reabrir la pregunta por la vida.
-          </div>
-
-          <p>El proyecto se despliega en formatos que permiten habitar la lentitud. Desde la palabra escrita hasta la voz registrada, cada pieza es un intento de cartografiar el agotamiento y proponer fisuras por donde entre la autonomía.</p>
-
-          <ul class="formats-list">
-            <li>Ensayos breves</li>
-            <li>Audiolibros</li>
-            <li>Cápsulas de audio</li>
-            <li>Series audiovisuales</li>
-          </ul>
+    <div class="hero-grid">
+      <div>
+        <span class="label">Observatorio · Ensayo · Laboratorios</span>
+        <h1>Taquicardia <span class="italic">|</span> Lina Marín</h1>
+        <p class="promise">
+          Comprender que el agotamiento no es un fallo personal, sino la respuesta lógica a un modelo de éxito en crisis. Y trazar caminos alternos hacia la expansión vital y la resonancia.
+        </p>
+        <div class="hero-ctas">
+          <a href="https://taquicardia.substack.com/" class="btn btn-primary" target="_blank">Leer el ensayo semanal</a>
+          <a href="#laboratorios" class="btn btn-secondary">Llevar el laboratorio a tu institución</a>
         </div>
       </div>
-
-      <!-- PARALLAX VISUAL JOURNEY: Corazón a lápiz + Ilustraciones nuevas -->
-      <div class="visual-journey">
-        <div class="parallax-stage">
-          <!-- Corazón central -->
-          <div class="p-layer" data-speed="0.4" style="top: 50%; left: 50%; width: min(45vw, 500px);">
-            <svg viewBox="0 0 500 480" width="100%" aria-label="Corazón dibujado a lápiz">
-              <defs>
-                <filter id="graphite" x="-10%" y="-10%" width="120%" height="120%">
-                  <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4"/>
-                  <feDisplacementMap in="SourceGraphic" scale="1.5"/>
-                </filter>
-              </defs>
-              <g filter="url(#graphite)" fill="none" stroke="#1f1f1f" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M250,430 C 120,340 40,260 40,170 C 40,100 95,55 160,55 C 205,55 235,80 250,115 C 265,80 295,55 340,55 C 405,55 460,100 460,170 C 460,260 380,340 250,430 Z" stroke-width="2.2" opacity="0.9"/>
-                <path d="M250,430 C 125,342 45,262 45,172 C 45,104 98,60 162,60 C 206,60 236,84 250,118 C 264,84 294,60 338,60 C 402,60 455,104 455,172 C 455,262 375,342 250,430 Z" stroke-width="1" opacity="0.5"/>
-                <path d="M90,180 C 110,230 160,290 220,340" stroke-width="0.8" opacity="0.5"/>
-                <path d="M410,180 C 390,230 340,290 280,340" stroke-width="0.8" opacity="0.5"/>
-                <g opacity="0.4" stroke-width="0.5">
-                  <path d="M70,160 L100,180 M75,175 L105,195 M80,190 L110,210 M85,205 L115,225"/>
-                  <path d="M430,160 L400,180 M425,175 L395,195 M420,190 L390,210 M415,205 L385,225"/>
-                </g>
-                <path d="M250,130 C 245,180 245,240 250,300" stroke-width="0.8" opacity="0.5"/>
-              </g>
-            </svg>
-          </div>
-
-          <!-- NUEVA ILUSTRACIÓN: Pila de manuscritos -->
-          <div class="p-layer" data-speed="0.25" style="top: 20%; left: 15%; width: 130px;">
-            <svg viewBox="0 0 130 100" width="100%">
-              <g fill="none" stroke="#2d3b32" stroke-width="1" stroke-linecap="round" opacity="0.5">
-                <path d="M10,80 L120,80 L120,30 C120,25 115,20 110,20 L20,20 C15,20 10,25 10,30 Z"/>
-                <path d="M15,75 L115,75 L115,35"/>
-                <path d="M20,70 L110,70 L110,40"/>
-                <path d="M25,45 L95,45 M25,55 L85,55 M25,65 L90,65" opacity="0.6"/>
-              </g>
-            </svg>
-          </div>
-
-          <!-- NUEVA ILUSTRACIÓN: Planta brotando (expansión vital) -->
-          <div class="p-layer" data-speed="0.5" style="bottom: 20%; right: 12%; width: 110px;">
-            <svg viewBox="0 0 110 130" width="100%">
-              <g fill="none" stroke="#2d3b32" stroke-width="1.2" stroke-linecap="round" opacity="0.55">
-                <path d="M55,120 L55,60 C55,40 30,35 30,50 C30,65 55,60 55,60"/>
-                <path d="M55,90 C55,70 80,65 80,80 C80,95 55,90 55,90"/>
-                <path d="M55,60 L55,30 C55,20 45,15 45,25"/>
-                <path d="M55,45 L65,35 C70,30 75,35 70,40"/>
-                <path d="M40,120 L70,120 M45,125 L65,125" opacity="0.6"/>
-              </g>
-            </svg>
-          </div>
-        </div>
-
-        <div class="caption">
-          Apuntes al margen. El latido como territorio de investigación.
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- SECCIÓN 2: LABORATORIOS PRESENCIALES -->
-<section class="journal" id="laboratorios">
-  <div class="wrap">
-    <div class="reveal">
-      <div class="section-head">
-        <span class="num">II.</span>
-        <h2>Laboratorios de experiencia presencial</h2>
-        <span class="meta">Encuentros · Territorio</span>
-      </div>
-
-      <div class="lab-intro">
-        <span class="to">Dirigido a →</span>
-        <p>Universidades, secretarías de cultura, centros culturales y fundaciones. Cada encuentro se diseña a medida del territorio, la institución y la pregunta que lo convoca. No son conferencias: son espacios de trabajo con el cuerpo, la palabra y el tiempo.</p>
-      </div>
-
-      <div class="labs-grid">
-        <article class="lab-card">
-          <span class="num">01</span>
-          <!-- Ilustración: Laberinto / espiral de desaceleración -->
-          <svg class="icon" viewBox="0 0 72 72" fill="none" stroke="#2d3b32" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="36" cy="36" r="30" opacity="0.3"/>
-            <path d="M36,12 C 56,12 60,28 60,36 C 60,50 48,60 36,60 C 22,60 12,48 12,36 C 12,24 22,16 36,16 C 46,16 54,24 54,36 C 54,44 46,50 36,50 C 28,50 22,44 22,36 C 22,30 28,26 36,26 C 42,26 46,30 46,36"/>
-          </svg>
-          <span class="format">Formato · 8 a 20 horas</span>
-          <h3>Laboratorios de desaceleración</h3>
-          <p>Encuentros para trabajar la relación con el tiempo, el cansancio y la productividad. Ejercicios de escritura, escucha y pausa para equipos docentes, de trabajo y comunidades.</p>
-        </article>
-
-        <article class="lab-card">
-          <span class="num">02</span>
-          <!-- Ilustración: Transversalidad / cruces -->
-          <svg class="icon" viewBox="0 0 72 72" fill="none" stroke="#2d3b32" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10,36 L62,36" opacity="0.4"/>
-            <path d="M36,10 L36,62" opacity="0.4"/>
-            <path d="M14,14 L58,58"/>
-            <path d="M58,14 L14,58"/>
-            <circle cx="36" cy="36" r="4" fill="#c68b59" stroke="none"/>
-            <circle cx="36" cy="36" r="22" opacity="0.3"/>
-          </svg>
-          <span class="format">Formato · Cátedra semestral</span>
-          <h3>Cátedras transversales sobre rendimiento y trabajo</h3>
-          <p>Programas académicos que atraviesan sociología, literatura, filosofía, artes y salud. Pensar el trabajo como pregunta ética, estética y política.</p>
-        </article>
-      </div>
-
-      <div class="dialogue-block">
-        <!-- Ilustración: Diálogo / dos voces -->
-        <svg class="icon" viewBox="0 0 80 80" fill="none" stroke="#2d3b32" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M15,25 C 15,20 20,15 25,15 L45,15 C 50,15 55,20 55,25 L55,40 C 55,45 50,50 45,50 L30,50 L20,60 L20,50 C 15,50 15,45 15,40 Z" opacity="0.7"/>
-          <path d="M35,35 C 35,30 40,25 45,25 L65,25 C 70,25 75,30 75,35 L75,50 C 75,55 70,60 65,60 L55,60 L55,70 L45,60 C 40,60 35,55 35,50 Z"/>
-          <path d="M25,28 L40,28 M25,35 L35,35" opacity="0.5"/>
-          <path d="M50,38 L65,38 M50,45 L60,45" opacity="0.5"/>
+      
+      <!-- Dibujo a lápiz: Corazón con líneas de búsqueda y cross-hatching -->
+      <div class="sketch-container">
+        <svg class="sketch-svg" viewBox="0 0 300 320" xmlns="http://www.w3.org/2000/svg">
+          <!-- Contorno buscado varias veces -->
+          <path d="M150,280 C 80,230 30,180 30,120 C 30,70 65,40 105,40 C 130,40 145,55 150,70 C 155,55 170,40 195,40 C 235,40 270,70 270,120 C 270,180 220,230 150,280 Z" />
+          <path d="M150,280 C 82,232 32,182 32,122 C 32,72 67,42 107,42 C 132,42 147,57 150,72" opacity="0.6" stroke-width="0.8"/>
+          
+          <!-- Cross-hatching (sombreado a lápiz) en el lóbulo izquierdo -->
+          <g class="cross-hatch">
+            <path d="M50,110 L80,130 M55,125 L85,145 M60,140 L90,160 M65,155 L95,175 M75,175 L105,195" />
+            <path d="M80,110 L50,130 M85,125 L55,145 M90,140 L60,160 M95,155 L65,175 M105,175 L75,195" />
+          </g>
+          
+          <!-- Línea de pulso / taquicardia que atraviesa -->
+          <path class="accent-line" d="M20,120 L90,120 L105,80 L120,160 L135,100 L150,120 L280,120" stroke-dasharray="4 4" />
+          
+          <!-- Notas marginales simuladas -->
+          <text x="200" y="60" font-family="monospace" font-size="10" fill="#3a3a3a" opacity="0.7" transform="rotate(-5 200 60)">¿expansión?</text>
+          <circle cx="240" cy="90" r="15" class="accent-line" fill="none" />
         </svg>
-        <div>
-          <h3>Diálogos de diagnóstico</h3>
-          <p>Conversaciones sobre el agotamiento y la autonomía creativa. Encuentros públicos entre la autora, invitados e instituciones para nombrar, con rigor y poesía, las crisis contemporáneas del éxito. Formato abierto para centros culturales, festivales y fundaciones.</p>
-        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- SECCIÓN 3: CONTACTO -->
-<section class="journal" id="contacto">
+<!-- QUÉ ES / PROPUESTA -->
+<section id="propuesta">
   <div class="wrap">
-    <div class="reveal">
-      <div class="section-head">
-        <span class="num">III.</span>
-        <h2>Contacto</h2>
-        <span class="meta">Correspondencia</span>
+    <div class="proposal-grid">
+      <div class="proposal-text">
+        <span class="label">La propuesta</span>
+        <h2>Más allá de la crítica, la reelaboración.</h2>
+        <p>
+          En las humanidades y las ciencias sociales es común criticar la industria del éxito y la superación personal. Taquicardia toma esa crítica, pero da un paso más: no se queda solo en describir la crisis.
+        </p>
+        <p>
+          Parte de una premisa radical: a un ser humano vivo le interesa expandirse y hacer cosas que tengan sentido. La misión de este observatorio es trazar caminos alternos para pensar el éxito, no en términos de crecimiento ilimitado, sino de <strong>expansión vital y resonancia</strong>.
+        </p>
+      </div>
+      <div>
+        <span class="label">Ejes de investigación</span>
+        <ul class="axes-list">
+          <li>El trabajo y la productividad</li>
+          <li>El amor y las relaciones</li>
+          <li>El dinero y la acumulación</li>
+          <li>La belleza y el cuerpo</li>
+          <li>La visibilidad y el reconocimiento</li>
+          <li style="grid-column: 1 / -1; margin-top: 0.5rem; font-style: italic; color: var(--accent);">Ejes transversales: la percepción del tiempo y el espacio en este régimen.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ECOSISTEMA -->
+<section id="ecosistema">
+  <div class="wrap">
+    <span class="label">El ecosistema</span>
+    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Formas de habitar la investigación</h2>
+    <p style="max-width: 600px;">Taquicardia no es solo un concepto. Es una práctica que se despliega en formatos analógicos y digitales, pensados para la pausa y la profundidad.</p>
+    
+    <div class="ecosystem-grid">
+      <!-- Substack -->
+      <div class="eco-card">
+        <div class="type">Escritura semanal</div>
+        <h3>Ensayos en Substack</h3>
+        <p>Un texto largo y serio cada semana. Cada ensayo es un borrador vivo del futuro libro, una hipótesis sobre cómo fracturar y repensar el discurso del éxito.</p>
+        <a href="https://taquicardia.substack.com/" target="_blank">Suscribirse al archivo →</a>
       </div>
 
-      <div class="contact-grid">
-        <div class="cta-block">
-          <!-- BOTÓN PRIMARIO: Mucho más visible, alto contraste -->
-          <a href="mailto:contacto@taquicardia.com" class="primary">Solicitar dossier pedagógico o agendar laboratorio presencial</a>
-          
-          <!-- BOTÓN SECUNDARIO: Elegante pero claro -->
-          <a href="#archivo" class="secondary">Acceder al archivo de ensayos y audio →</a>
-          
-          <p class="note">
-            Cada solicitud es leída personalmente. La respuesta llega en el tiempo que toma una carta, no un correo automático. Si escribe desde una institución, incluya el nombre del programa o área que le convoca.
-          </p>
-        </div>
+      <!-- Audiolibro -->
+      <div class="eco-card">
+        <div class="type">Próximamente · Noviembre 2026</div>
+        <h3>Audiolibro: Taquicardia</h3>
+        <p><em>Pensar las crisis y reelaboraciones del éxito.</em> El primer libro de Lina Marín autora, disponible en formato de audio para ser escuchado en movimiento o en pausa.</p>
+        <a href="#">Unirse a la lista de espera →</a>
+      </div>
 
-        <form class="journal-form" onsubmit="event.preventDefault(); this.querySelector('button').innerText='✓ Enviado — gracias';">
-          <div class="field">
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" required />
-          </div>
-          <div class="field-row">
-            <div class="field">
-              <label for="inst">Institución u organización</label>
-              <input type="text" id="inst" name="inst" />
-            </div>
-            <div class="field">
-              <label for="ciudad">Ciudad</label>
-              <input type="text" id="ciudad" name="ciudad" />
-            </div>
-          </div>
-          <div class="field">
-            <label for="mensaje">Mensaje</label>
-            <textarea id="mensaje" name="mensaje" required></textarea>
-          </div>
-          <button type="submit">Enviar correspondencia</button>
-        </form>
+      <!-- TikTok / Videoarte -->
+      <div class="eco-card">
+        <div class="type">Serie audiovisual</div>
+        <h3>Videoarte en TikTok</h3>
+        <p>Adaptaciones visuales de los ensayos. Trazos rápidos en el cuaderno de algodón, reflexiones de 75 segundos y una estética que prioriza el pensamiento sobre la perfección.</p>
+        <a href="https://www.tiktok.com/@taquicardia.lm?_r=1&_t=ZS-98Mm8nPC4KT" target="_blank">Ver la serie →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- LABORATORIOS -->
+<section id="laboratorios">
+  <div class="wrap">
+    <span class="label">Para instituciones</span>
+    <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Laboratorios de experiencia presencial</h2>
+    
+    <div class="labs-block">
+      <h3>Laboratorio Taquicardia: Diagnóstico, Resonancia y Artefactos de Desaceleración</h3>
+      <p style="font-size: 1.05rem; max-width: 800px;">
+        Un espacio analógico de 4 horas para pausar, diagnosticar el agotamiento contemporáneo y construir alternativas colectivas de expansión vital. Dirigido a universidades, secretarías de cultura, cajas de compensación y centros culturales.
+      </p>
+      
+      <div class="labs-details">
+        <div>
+          <strong>Duración</strong>
+          4 horas (4 bloques temáticos)
+        </div>
+        <div>
+          <strong>Aforo</strong>
+          15 - 20 participantes (para garantizar el diálogo)
+        </div>
+        <div>
+          <strong>Inversión</strong>
+          Desde $800.000 COP (Tarifa base) hasta $2.000.000 COP (Institucional)
+        </div>
+      </div>
+
+      <a href="mailto:contacto@taquicardia.co" class="btn btn-primary">Solicitar dossier pedagógico y cotización</a>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE LINA -->
+<section id="autora">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="about-photo">
+        [Espacio para tu foto]
+        <br><br>
+        <em style="font-size: 0.7rem; opacity: 0.7;">(Sugerencia: foto en blanco y negro o con luz natural, sosteniendo el cuaderno de algodón, sin posar)</em>
+      </div>
+      <div class="about-text">
+        <span class="label">Quién escribe esto</span>
+        <h2>Lina Marín</h2>
+        <p>
+          Periodista, ensayista, investigadora y creadora. Doctora en Estudios Interdisciplinarios sobre Pensamiento, Cultura y Sociedad. 
+        </p>
+        <p>
+          Ha trabajado en medios de comunicación, organizaciones sociales y universidades en Colombia, España y Chile. Estudia el éxito como hiperobjeto y el impacto que tiene en nuestras sociedades la forma en la que lo concebimos. Taquicardia es su apuesta por pasar de la academia a la autoría pública, con rigor, pero también con divulgación y sensibilidad.
+        </p>
+        <div class="credentials">
+          <strong>Formación y trayectoria:</strong><br>
+          · Doctora en Estudios Interdisciplinarios sobre Pensamiento, Cultura y Sociedad.<br>
+          · Experiencia docente e investigativa en Colombia, España y Chile.<br>
+          · Creadora del observatorio Taquicardia.
+        </div>
       </div>
     </div>
   </div>
@@ -862,64 +520,21 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="mark">« Taquicardia: el pulso que pide otra respiración. »</div>
-  <div class="colophon">
-    Taquicardia <span>·</span> Lina Marín <span>·</span> Cuaderno de campo <span>·</span> MMXXVI
+  <div class="wrap">
+    <div class="quote">
+      « La autonomía narrativa es dejar de vivir bajo un guion de éxito ajeno para comenzar a construir una vida basada en la resonancia. »
+    </div>
+    <div class="links">
+      <a href="https://taquicardia.substack.com/" target="_blank">Substack</a>
+      <a href="https://www.tiktok.com/@taquicardia.lm?_r=1&_t=ZS-98Mm8nPC4KT" target="_blank">TikTok</a>
+      <a href="mailto:contacto@taquicardia.co">contacto@taquicardia.co</a>
+    </div>
+    <div class="copy">
+      © 2026 Taquicardia · Lina Marín. Todos los derechos reservados.<br>
+      Diseño: Cuaderno de investigación visual.
+    </div>
   </div>
 </footer>
-
-<!-- JAVASCRIPT: PARALLAX Y REVEAL -->
-<script>
-  // Parallax fluido optimizado
-  (function(){
-    const layers = document.querySelectorAll('.p-layer');
-    let ticking = false;
-
-    function updateParallax() {
-      const scrollY = window.scrollY;
-      layers.forEach(layer => {
-        const speed = parseFloat(layer.dataset.speed) || 0.2;
-        const parent = layer.closest('.parallax-stage') || layer.parentElement;
-        const parentTop = parent.getBoundingClientRect().top + scrollY;
-        const offset = (scrollY - parentTop) * speed;
-        
-        layer.style.setProperty('--py', offset + 'px');
-        
-        // Mantener centrado absoluto del corazón
-        if(layer.style.width && layer.style.width.includes('min(')) {
-           layer.style.transform = `translate(-50%, calc(-50% + ${offset}px))`;
-        }
-      });
-      ticking = false;
-    }
-
-    function onScroll() {
-      if (!ticking) {
-        window.requestAnimationFrame(updateParallax);
-        ticking = true;
-      }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', updateParallax);
-    updateParallax();
-  })();
-
-  // Animación de aparición al hacer scroll
-  (function(){
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in');
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-    
-    reveals.forEach(el => observer.observe(el));
-  })();
-</script>
 
 </body>
 </html>
